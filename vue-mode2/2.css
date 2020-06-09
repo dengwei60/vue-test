@@ -1,0 +1,54 @@
+#app {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+#app .loading {
+  width: 300px;
+  margin: 0 auto;
+}
+#app .loading .title {
+  text-align: center;
+  padding: 10px;
+}
+#app .loading .content .top {
+  display: flex;
+  align-items: center;
+  height: 50px;
+}
+#app .loading .content .top .left {
+  flex: 2;
+  text-align: center;
+}
+#app .loading .content .top .right {
+  flex: 8;
+}
+#app .loading .content .top .right input {
+  width: 100%;
+  height: 30px;
+}
+#app .loading .content .bottom {
+  display: flex;
+  align-items: center;
+  height: 50px;
+}
+#app .loading .content .bottom .left {
+  flex: 3;
+}
+#app .loading .content .bottom .left input {
+  width: 100%;
+  height: 30px;
+}
+#app .loading .content .bottom .right {
+  flex: 7;
+  text-align: center;
+  padding-left: 30px;
+}
+#app .loading .confirm {
+  height: 50px;
+  line-height: 50px;
+  background-color: red;
+  color: white;
+  border-radius: 5px;
+  text-align: center;
+}

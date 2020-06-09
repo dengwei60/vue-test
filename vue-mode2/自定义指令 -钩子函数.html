@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* 定义一个class[v-cloak] */
+        [v-cloak]{
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- 哪里需要在视图渲染的时候隐藏-->
+    <div id="app" v-cloak>
+        <!-- <input type="text" v-focus id="myText" value="text" > -->
+        <input type="text" v-focus:foo="100" id="myText" :value="text" v-if="seen">
+
+
+       
+    </div>
+    
+</body>
+<script src="https://cn.vuejs.org/js/vue.js"></script>
+<script>
+    //给工厂家方法,那么就需要转换为实例
+    //注册一个全局的指令
+        Vue.directive("focus",{
+            bind:function(el,binding,vnode){
+                console.table(binding)
+                console.log("bind","进入到bind中")
+            },
+        
+                //当被绑定的元素插入到dom中的时候(生命周期的一个阶段)
+            inserted:function(el,binding,vnode){
+                    //指令的渲染(这里是聚焦)
+                    console.log('insert',"当元素被插入到父元素中的时候调用")
+                    el.focus();  
+            },
+
+            updata:function(el,binding,vnode){
+                console.log("updata 更新中")
+            },
+
+
+            unbind:function(el,banding,vnode){
+                console.log("unbinding 解绑中")
+            }
+        })
+    let vm = new Vue({
+        el:"#app",
+        data:{
+            text:"👍💯😊",
+            seen:true,
+            direction:"top"
+        },
+
+    })
+</script>
+</html>

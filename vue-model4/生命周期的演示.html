@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        [v-cloak]{
+            display: none;
+        }
+    </style>
+
+</head>
+<body>
+    <div id="app" v-cloak>
+        <!-- 页面的监听事件 -->
+        <h1 @click='test'>{{title}}</h1>
+    </div>
+</body>
+<script src="https://cn.vuejs.org/js/vue.js"></script>
+<script>
+    
+    let vm = new Vue({
+        // el:"#app",
+        //元素创建前
+        beforeCreate() {
+            //打印当时的元素是否生成
+            console.log("beforeCreat:"+this.$el);
+            //打印当时的数据是否生成
+            console.log("beforeCreat:"+this.$data)
+        },
+        //元素创建时
+        created() {
+            //元素
+            console.log("created:"+this.$el)
+            //数据
+            console.log("created:"+this.$data)
+        },
+        //元素挂载前
+        beforeMount() {
+            //元素
+            console.log("beforeMount:"+this.$el)
+            //数据
+            console.log("beforeMount:"+this.$data)
+        },
+        //与元素挂载后
+        mounted() {
+            //元素
+            console.log("mounted:"+this.$el)
+            //数据
+            console.log("mounted:"+this.$data)
+        },
+        //数据更新前
+        beforeUpdate() {
+            console.log("更新前")
+        },
+        //数据更新后
+        updated() {
+            console.log("更新后")
+        },
+        //数据销毁前
+        beforeDestroy() {
+            console.log("销毁前")
+        },
+        //数据销毁后
+        destroyed() {
+            console.log("销毁后")
+        },
+        data:{
+            title:"生命周期函数的演示"
+        },
+        methods:{
+            test:function(){
+                consloe.log("test")
+            }    
+        }
+    })
+    vm.$mount("#app")
+    //写个定时器 3面后更新 参数
+    setTimeout(function(){vm.$data.title = "更新:生命周期函数的演示"},3000)
+    //写个定时器 6 秒后销毁
+    setTimeout(() => {
+        vm.$destroy()
+    }, 6000);
+    
+</script>
+</html>

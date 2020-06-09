@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        [v-cloak]{
+            display: none;
+        }
+        .app{
+            width: 100px;
+            display: flex;
+            justify-content: space-between;
+        }
+    </style>
+</head>
+<body>
+    <div class="app" v-cloak>
+        {{num}}
+        <button @click="add">+</button>
+    </div>
+    
+</body>
+<script src="https://cn.vuejs.org/js/vue.js"></script>
+<script>
+    let vm = new Vue({
+        el:".app",
+        data:{
+            num:0
+        },
+        methods: {
+            add(){
+                this.num++
+            }
+        },
+    })
+</script>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <!-- 先写结构 -->
+        <!-- 这里注意我们传入的'event'的参数是"$event" -->
+        <button @click="add(10,$event)">+</button>
+        <span>{{num}}</span>
+        <button @click="sub">-</button>
+
+
+    </div>
+    
+</body>
+<script src="https://cn.vuejs.org/js/vue.js"></script>
+<script>
+    //vue是双向数据的绑定,所以下面传参的方法改变我们的num的值,也会改变我们的试图
+let vm = new Vue({
+    el:"#app",
+    data:{
+        num:0,
+    },
+    methods:{
+        add:function(step,e){
+            console.log("要增加了哦,我只加了一个单位")
+            console.log(e)//拿到当前的event
+            console.log(this)//当前的this指的是当前的vue实例
+            this.num += step
+        },
+        sub:function(){
+            console.log("我想以一个单位减少")
+            if(this.num-1 < 0){
+                alert('你都把我减没了')
+
+            }else{
+                this.num -= 1
+            }
+        }
+
+    }
+})
+</script>
+</html>

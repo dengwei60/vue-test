@@ -1,0 +1,139 @@
+.todosapp {
+  position: relative;
+  width: 600px;
+  margin: 0 auto;
+  border: 2px solid #ddd;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 25px 50px 0 rgba(0, 0, 0, 0.1);
+}
+.todosapp .hidden {
+  display: none;
+}
+.todosapp .show {
+  display: block;
+}
+.todosapp .top {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-image: url("image/5f808255eae7c5b2a075b7699aa690fc.jpg");
+}
+.todosapp .top .title {
+  color: #ff8c00;
+  font-size: 50px;
+}
+.todosapp .top .content {
+  width: 100%;
+  position: relative;
+}
+.todosapp .top .content .left {
+  position: absolute;
+  top: 0;
+  left: 15px;
+  width: 50px;
+  height: 50px;
+  font-size: 30px;
+  line-height: 50px;
+  text-align: center;
+  color: #ddd;
+}
+.todosapp .top .content .allch {
+  color: black;
+}
+.todosapp .top .content .todo-input {
+  height: 50px;
+  margin-bottom: 10px;
+}
+.todosapp .top .content .todo-input input {
+  border: none;
+  text-indent: 80px;
+  font-size: 30px;
+  height: 100%;
+  width: 100%;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 25px 50px 0 rgba(0, 0, 0, 0.1);
+}
+.todosapp .top .content ul {
+  position: absolute;
+  left: 80px;
+  top: 50px;
+}
+.todosapp .top .content ul li {
+  height: 30px;
+  width: 333px;
+  line-height: 30px;
+  text-align: left;
+  color: white;
+  background-color: #ff8400;
+  border-bottom: 1px solid #ddd;
+  border-radius: 5px;
+  margin-bottom: 2px;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 25px 50px 0 rgba(0, 0, 0, 0.1);
+}
+.todosapp .middle {
+  width: 100%;
+}
+.todosapp .middle .middle-content {
+  padding: 5px;
+}
+.todosapp .middle .middle-content .middle-list {
+  list-style: none ;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.todosapp .middle .middle-content .middle-list input {
+  flex: 1;
+}
+.todosapp .middle .middle-content .middle-list .list-item {
+  flex: 8;
+}
+.todosapp .middle .middle-content .middle-list .list-item input {
+  width: 100%;
+  height: 100%;
+}
+.todosapp .middle .middle-content .middle-list .active {
+  color: #ddd;
+  text-decoration: line-through;
+}
+.todosapp .middle .middle-content .middle-list .del {
+  display: none;
+  flex: 0.5;
+  font-size: 20px;
+  color: red;
+}
+.todosapp .middle .middle-content:hover .del {
+  display: block;
+}
+.todosapp .bottom {
+  width: 100%;
+  border-top: 1px solid #ddd;
+  box-sizing: border-box;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  z-index: 10;
+}
+.todosapp .bottom .left {
+  color: #ff8c00;
+}
+.todosapp .bottom .left span {
+  color: #01fceb;
+}
+.todosapp .bottom .center {
+  display: flex;
+}
+.todosapp .bottom .center .center-list {
+  width: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+}
+.todosapp .bottom .center .choose {
+  border: 1px solid #ff8c00;
+}
+.todosapp .bottom .right button {
+  border: none;
+  background-color: red;
+  color: white;
+}

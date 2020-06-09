@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* 定义一个class[v-cloak] */
+        [v-cloak]{
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- 哪里需要在视图渲染的时候隐藏-->
+    <div id="app" v-cloak>
+        <section v-show="seen">
+            1:<section v-html="text"></section>
+        </section>
+        <!-- v-show对于v-if的区别是if会直接对dom中的元素直接的摧毁和显示,show接收属性单不会再dom中将元素摧毁 -->
+       
+    </div>
+    
+</body>
+<script src="https://cn.vuejs.org/js/vue.js"></script>
+<script>
+let vm = new Vue({
+    el:'#app',
+    data:{
+        text:"👍 😊 (*^▽^*)",
+        seen:true,//是否可见
+        seen1:true,
+        html:'<div id="lg"><img hidefocus="true" src="www.baidu.com/img/bd_logo1.png" width="270" height="129"></div>',
+    },
+})
+</script>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        [v-cloak]{
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- 这个指令只会驱使一次试图 -->
+    <div id="app" v-cloak>
+
+     <section v-once>{{text}}</section>
+    </div>
+    
+</body>
+<script src="https://cn.vuejs.org/js/vue.js"></script>
+<script>
+let vm = new Vue({
+    el:'#app',
+    data:{
+        text:"👍 😊 (*^▽^*) 111 222",
+        html:'<div id="lg"><img hidefocus="true" src="www.baidu.com/img/bd_logo1.png" width="270" height="129"></div>',
+    },
+})
+</script>
+</html>

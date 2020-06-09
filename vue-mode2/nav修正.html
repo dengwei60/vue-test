@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./nav.css">
+    <style>
+        [v-cloak]{
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- 进行循环的时候注意选对谁循环,循环的写法,数组循环还是对象循环类似于微信小程序需要一个:key属性(这是简写)[v-bind:key="index"] -->
+    <nav class="nav" v-cloak>
+        <!-- 这里是数组的循环 -->
+        <section class="left" >
+            <div class="nav-item" v-for="item,index in nav_left" :key="index">{{item}}</div>  
+        </section>
+        <section class="right" >
+            <div class="nav-item" v-for="(item,index) in nav_right" :key="index">{{item}}</div>
+        </section>
+        <!-- 这里是对象的循环 -->
+        
+            <section v-for="(val,name,i) of nav_obj">
+                {{i}}:{{name}}:{{val}}
+            </section>
+       
+        
+    </nav>
+    <script src="https://cn.vuejs.org/js/vue.js"></script>
+    <script>
+        let vm = new Vue({
+            el:".nav",
+            data:{
+                nav_obj:{
+                    id:1,
+                    name:2,
+                    num:3,
+                    index:4
+                },
+                nav_left:[
+                "新闻",
+                "hao123",
+                '地图',
+                '视屏',
+                '贴吧',
+                '学术',
+                '更多',
+                ],
+                nav_right:[
+                '抗击肺炎',
+                '设置',
+               '登录'
+                ],
+                
+            }
+        })
+    </script>
+</body>
+</html>

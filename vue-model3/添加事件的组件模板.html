@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        [v-cloak]{
+            display: none;
+        }
+    </style>
+</head>
+<body>     
+    <div id="app" v-cloak>
+         <todos></todos>
+         
+    </div>
+</body>
+<script src="https://cn.vuejs.org/js/vue.js"></script>
+<script>
+    //注册全局组件
+    Vue.component("todos",{
+        data() {
+            return {
+                changeValue:'',
+                values:[]
+            }
+        },
+        //注意组件的外面需要套一个根标签,
+        template:`
+        <section>
+            <section>
+              <input type="text" v-model="changeValue">
+              <button @click="add">添加</button>
+          </section>
+          <section>
+              <ul>
+                  <!-- 内容是输入参数的循环 -->
+                  <li v-for="item,index in values" :key="index">
+                      {{item}}
+                      <button @click="del(index)">删除</button>
+                    </li>
+              </ul>
+          </section>
+        </section>
+        `,
+        methods:{
+            add:function(){
+                //如果输入是空的情况下
+                if(!this.changeValue.trim()){
+                    alert('请输入非空文字')
+                    return;
+                }
+                //将内容铺入下面渲染栏
+                this.values.push(this.changeValue)
+                //清空这个文本框
+                this.changeValue = ""
+            },
+            del:function(index){
+                //点击删除要删除的选项栏
+                this.values.splice(index,1)
+            }
+
+        }
+    })
+    let vm = new Vue({
+        el:"#app",
+        data:{
+          
+        },
+        methods: {
+           
+        },
+    })
+</script>
+</html>

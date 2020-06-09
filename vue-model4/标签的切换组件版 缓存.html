@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        [v-cloak]{
+            display: none;
+        }
+        .nav{
+            display: flex;    
+        }
+        .nav-item{
+            width: 100px;
+            height: 50px;
+            border: 1px solid #ddd;
+            line-height: 50px;
+            text-align: center;
+        }
+        .active{
+            background-color: #ddd;
+        }
+    </style>
+
+</head>
+<body>
+    <!-- 通过引入动态组件来进行内容跳转的绑定 -->
+    <div id="app" v-cloak>
+        <!-- 头部通过循环拿到内容 -->
+        <nav class="nav">
+            <!-- 又因为这里的class需要动态的添加active名所以需要用,对象或者数组的方式进行添加 -->
+            <section v-for="item,index in navs" :key="index" @click="handelChange(index)"
+            :class="{'nav-item':true,active:currentTab === item.id}"
+            >
+            {{item.title}}
+        </section>
+        <!-- :class="['nav-item',{active:currentTab === item.id}]" -->
+        </nav>
+        <!--这里通过计算属性来拿到这个内容 -->
+        <section class="content">
+            <!-- 为了切换的时候不用缓存,我们就直接引用keepalive来缓存当时那个组件 -->
+            <!-- 使用动态组件渲染 -->
+            <!-- 每一次都是在渲染不同的组件 -->
+            <!-- <keep-alive> -->
+                <component :is="componentId"></component>
+            <!-- </keep-alive> -->
+        </section>
+    </div>
+</body>
+<script src="https://cn.vuejs.org/js/vue.js"></script>
+<script>
+    //主页对应的组件
+    Vue.component("app-home",{
+        template:`
+        <section>主页</section>
+        `,
+        beforeDestroy() {
+            console.log("主页销毁前")
+        },
+        destroyed() {
+            console.log("主页销毁后")
+        },
+    })
+    //公司介绍对应的组件
+    Vue.component("app-introduce",{
+        template:`
+        <section>公司介绍</section>
+        `,
+        beforeDestroy() {
+            console.log("公司介绍销毁前")
+        },
+        destroyed() {
+            console.log("公司介绍销毁后")
+        },
+    })
+    //产品介绍对应的组件
+    Vue.component("app-product",{
+        template:`
+        <section>产品介绍</section>
+        `,
+        beforeDestroy() {
+            console.log("产品介绍销毁前")
+        },
+        destroyed() {
+            console.log("产品介绍销毁后")
+        },
+    })
+
+  
+    let vm = new Vue({
+         el:"#app",
+        data:{
+            //给定一个中间变量的id从而定位到切换时候的元素好做效果渲染
+            currentTab:"home",
+            navs:[{
+                id:"home",
+                title:"主页",
+                content:"主页"
+            },{
+                id:"introduce",
+                title:"公司介绍",
+                content:"公司介绍"
+            },{
+                id:"product",
+                title:"产品介绍",
+                content:"产品介绍"
+            }]
+        },
+        methods:{
+            // changeParentTitle:function(value){
+            //     this.title = value
+            // }
+            handelChange:function(index){
+                this.currentTab = this.navs[index].id
+            }
+        },
+        computed: {
+            //计算内容的方法    
+            componentId:function(){
+                //当时的组件的名字
+                let componentId = "app-"+this.currentTab
+                return componentId
+            }
+        },
+    })
+    
+</script>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./nav.css">
+    <style>
+        [v-cloak]{
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <script src="https://cn.vuejs.org/js/vue.js"></script>
+    <script>
+       let arr = ["👍","汉波","付珍","小石头","张皮皮"]
+       //for..in 对数组循环拿到的是item的下标(index)
+       for(let item in arr){
+           console.log("for..in:",item)
+       }
+       //for..of 对数组循环拿到的是item的本身(item)
+       for(let item of arr){
+           console.log("for..of:",item)
+       }
+       let obj={
+           name:"thomas",
+           sex:"男"
+       }
+       for(let item in obj){
+           console.log("for...in",item,":",obj[item])
+       }
+
+       //对象用for...in ,数组用for..of
+    </script>
+</body>
+</html>

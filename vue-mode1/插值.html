@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 视图内才有效果 -->
+    <div id="app">
+        <!-- 文本 -->
+        <h1>{{"100分"}}</h1>
+        <!-- 变量 -->
+        <h1>{{text}}</h1>
+        <!-- html代码 -->
+        <h1>{{raw}}</h1>
+        <!--需要解析的时候需要绑定v-html事件-->
+        <h1 v-html="raw"></h1>
+        <!-- 属性 -->
+        <h1 id="id"></h1>
+        <!-- 需要用v-bind来绑定属性 -->
+        <h1 v-bind:id="id">展示id</h1>
+        <h1 v-bind:id="id+'🙂'">展示了id和🙂</h1>
+        <!-- 表达式 插值表达式内的拼接也别忘了字符串符号-->
+        <h1>a+b = {{a+b}}</h1>
+        <h1>{{message+"🌂"}}</h1>
+        <h1>{{ok?"100分":"👍"}}</h1>
+        <!-- 想要运用语句的声明是不可行的 -->
+        <!-- <h1>{{ let messge = "123"}}</h1>
+        <h1>{{if(ok){alert("ok")}else{alert("no")}
+            }}</h1> -->
+
+    </div>
+    
+    
+</body>
+<script src="https://cn.vuejs.org/js/vue.js"></script>
+<script>
+    let vm = new Vue({
+        el:"#app",
+        data:{
+            //单遇双,双遇单
+            text:"100万 👍 😄",
+            raw:"<apan style='color:red'>红色</span>",
+            id:1223456,
+            a:1,
+            b:2,
+            message:'信息:',
+            ok:true
+        }
+    })
+</script>
+</html>

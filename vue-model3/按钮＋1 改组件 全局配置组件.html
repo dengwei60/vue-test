@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        [v-cloak]{
+            display: none;
+        }
+    </style>
+</head>
+<body>
+             <!-- <button-counter/> 不要用这种单标签的形式只能产生一个正确的组件其他的组件输入-->
+             
+    
+    <div id="app" c-cloak>
+        <button-counter></button-counter>
+    </div>
+</body>
+<script src="https://cn.vuejs.org/js/vue.js"></script>
+<script>
+    //创建全局组件的步骤
+    //1.创建组件的名称(注意大小写)
+    //2.组件的配置
+    //3.template 就是组件的模板
+    //4,data 必须是一个函数工厂 记得return
+    //5,组件的命名 建议使用 kebab-base 中横线 形式 button-counter
+    //6,每个template 里面必须有一个根元素
+    //7,使用模板字符串写template
+    //vue.componet("button-counter",{})
+    //vue.componet("buttoncounter")
+    Vue.component('button-counter',{
+        //data:{
+        //   num:0
+        //}这是错误的写法
+        data:function(){
+            return{
+                num:0
+            }
+        },
+        //记得这里要加一个根元素
+        template:`
+        <div><button @click="handeladd">点击+1:{{num}}</button></div>
+        `,
+        methods:{
+            handeladd:function(){
+                this.num += 1
+            }
+
+        }
+
+    })
+    
+    let vm = new Vue({
+        el:"#app",
+        data:{
+           
+        },
+        methods:{
+            
+        },
+    })
+</script>
+</html>

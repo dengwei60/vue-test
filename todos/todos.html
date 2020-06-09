@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>记事本</title>
+    <link rel="stylesheet" href="./todos.css">
+</head>
+<body>
+    <div class="todosapp">
+        <!-- 顶部的输入模块开始-->
+        <section class="top">
+            <section class="title">待办事项</section>
+            <section class="allchecked" v-show="todos.length" @click="allchecked">全选</section>
+            <section class="todo-input">
+                <input type="text" v-model="changeValue" @keyup.enter = "addtext"
+                placeholder="What needs to be done?">
+            </section>
+        </section>
+        <!-- 顶部的输入模块结束 -->
+        <!-- 内容的开始-->
+        <section class="middle" v-show="1" >
+            <ul class="middle-content">
+                <li class="middle-list" v-for="item,index in todos">
+                    <input type="checkbox" v-model="item.checked">
+                    <section :class="['list-item',]">
+                        {{item.text}}
+                    </section>
+                    <button @click="removeli(index)">删除</button>
+                </li>
+            </ul>
+        </section>
+        <!-- 内容的结束-->
+        <!-- 底部的开始 -->
+        <section class="bottom" v-show="1">
+            <section class="left"><span>剩下0项</span></section>
+            <section class="center">
+               <section class="center-list"><a href="">All</a></section>
+               <section class="center-list"><a href="">激活</a></section>
+               <section class="center-list"><a href="">完成</a></section>
+            </section>
+            <section class="right">
+                <button>清除完成</button>
+            </section>
+        </section>
+        <!-- 底部的结束 -->
+    </div>
+</body>
+<script src="https://cn.vuejs.org/js/vue.js"></script>
+<script>
+    //先从本地拿到一个本地存储
+    let todos = JSON.parse(localStorage.getItem("todos")) || []
+
+    let vm = new Vue({
+        el:".todosapp",
+        data:{
+            //v-model的监听的值
+            changeValue:"",
+            //存储一个数据是本地存储的数据
+            todos:todos,
+            //选中的项数
+            num:0,
+            //设定一个中立变量
+            allcheck:false,
+        },
+        methods: {
+            //键盘的输入时间
+            addtext:function(){
+                //创建一个对象存储todos的数据
+                let todos_obj = {
+                    id:0,
+                    text:"",
+                    checked:false
+                }
+                todos_obj.id = this.todos.length
+                todos_obj.text = this.changeValue
+                //将这个生成的对象铺进data属性里面的的数组中
+                this.todos.push(todos_obj)
+                //再将里面输入的值取清空
+                this.changeValue=""
+                localStorage.setItem("todos",JSON.stringify(this.todos))
+            },
+            removeli:function(index){
+                this.todos.splice(index,1)
+                localStorage.setItem("todos",JSON.stringify(this.todos))
+            },
+            allchecked:function(){
+                todos.forEach((e,i) => {
+                   
+                        e.checked = !this.allcheck
+                })
+                    this.allcheck = !this.allcheck
+                localStorage.setItem("todos",JSON.stringify(this.todos))
+            },
+
+        },
+    })
+</script>
+</html>

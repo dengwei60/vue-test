@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./nav.css">
+    <style>
+        [v-cloak]{
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="app" v-cloak>
+        <!-- 对数组的遍历 -->
+        <section v-for="item,index in arr">
+            {{index}}:{{item}}
+        </section>
+        <section v-for="item,index of arr">
+            {{index}}:{{item}}
+        </section>
+        <section v-for="(val,key,i) in obj">
+            {{i}}:{{val}}
+        </section>
+    </div>
+    <script src="https://cn.vuejs.org/js/vue.js"></script>
+    <script>
+       let vm = new Vue({
+           el:"#app",
+           data:{
+               arr:["👍", "💯", "😊", "🍎"],
+               obj:{
+                   name:"Thomas",
+                   sex:"男"
+               }
+           },
+
+       })
+    </script>
+</body>
+</html>

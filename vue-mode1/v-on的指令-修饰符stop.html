@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- stop修饰符是为了阻止事件冒泡类似于e.stoppropagation的性质 -->
+    <!--stop的引入方式是在事件的后面以.stop的方式引入这个字符串 -->
+    <!-- 例如:@click.stop -->
+    <div id="app">
+        <nav @click="handelNavClick">
+            <div @click.stop="handelItemClick">项目1</div>
+            <div @click.stop="handelItemClick">项目2</div>
+            <div @click="handelItemClick">项目3</div>
+        </nav>
+    </div>
+    
+</body>
+<script src="https://cn.vuejs.org/js/vue.js"></script>
+<script>
+let vm = new Vue({
+    el:"#app",
+    data:{
+
+    },
+    methods:{
+        handelNavClick:function(){
+            console.log("父项被点击")
+        },
+        handelItemClick:function(){
+            console.log("子项被点击")
+        }
+    }
+})
+</script>
+</html>

@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>记事本</title>
+    <link rel="stylesheet" href="./todos.css">
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+        ul li{
+            list-style: none;
+        }
+        [v-cloak]{
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="todosapp" v-cloak>
+        <!-- 顶部的输入模块开始-->
+        <section class="top">
+            <!-- 标题栏 -->
+            <section class="title">待办事项</section>
+            <!-- 标题结束 -->
+            <!-- 内容输入框 -->
+            <section class="content">
+                <!-- 是否全选的样式有变化 点击的功能有全选可反选功能-->
+                <!-- 全选的按钮 -->
+                <section :class="['left',{allch:allChecked}]"
+                v-show="todos.length"
+                 @click.stop="allcheckedEvent"
+                 >v</section>
+                 <!-- 输入框 -->
+                 <!-- 输入的时候有一个下拉框 -->
+                 <section class="todo-input">
+                     <input  v-focus type="text" v-model="changeValue" @keyup.enter = "addtext"
+                     @input = "showli"
+                     placeholder="What needs to be done?"
+                    >
+                     <!-- 输入的事件时候还有一个下拉框 -->
+                     <ul :class="['hidden',{show:inputting}]">
+                         <li v-for="item,index in tips" @click.stop="addtips(item)">{{item}}</li>
+                     </ul>
+               </section>
+            </section>
+            
+            <!-- 内容输入框结束 -->
+        </section>
+        <!-- 顶部的输入模块结束 -->
+        <!-- 内容的开始-->
+        <section class="middle" v-show="1" >
+            <ul class="middle-content">
+                <li class="middle-list" v-for="item,index in filterTodos">
+                    <!-- 内容里面的选框开始 -->
+                    <input type="checkbox" v-model="item.checked">
+                    <!-- 内容里面的选框结束 -->
+                    <!-- 内容里面的文本展示区开始 -->
+                    <!-- 双击的时候内容隐藏 -->
+                    <section :class="['list-item',
+                    {active:item.checked,hidden:edit_index === index}]"
+                    @dblclick.stop="replacetodos(index)">
+                    {{item.text}}
+                    </section>
+                    <!-- 双击的时候内容隐藏弹出一个修改文本框 -->
+                    <section :class="['list-item','hidden',{show:edit_index === index}]">
+                        <!-- 文本框具有修改和回退事件 -->
+                        <!-- 失焦或回车保留编辑后的文本 -->
+                        <!-- 回退键取消这次编辑的内容,内容变为先前的内容 -->
+                        <input type="text" v-model="item.text"
+                        @keyup.enter="saveEditTodo(index)"
+                        @blur="saveEditTodo(index)"
+                        @keyup.esc="cancelEditTodo(index)"
+                        >
+                    </section>
+                    <!-- 内容里面的文本展示区结束 -->
+                    <!-- 内容里面的删除开始 -->
+                    <section class="del" @click.stop="removeli(index)">×</section>
+                    <!-- 内容里面的删除结束 -->
+                </li>
+            </ul>
+        </section>
+        <!-- 内容的结束-->
+        <!-- 底部的开始 -->
+        <section class="bottom" v-show="todos.length">
+            <!-- 左边部分开始 -->
+            <section class="left">剩下<span>{{remaining}}</span>项</section>
+            <!-- 左边部分结束 -->
+            <!-- 中间开始 -->
+            <section class="center">
+               <a href="#/all" :class="['center-list',{choose:visibility=='all'}]">All</a>
+               <a href="#/active" :class="['center-list',{choose:visibility=='active'}]">激活</a>
+               <a href="#/finish" :class="['center-list',{choose:visibility=='finish'}]">完成</a>
+            </section>
+            <!-- 中间结束 -->
+            <!-- 右边开始 -->
+            <!-- 清除已经完成的 -->
+            <section class="right">
+                <button @click.stop="clearCompletedTodos">清除完成</button>
+            </section>
+            <!-- 右边结束 -->
+        </section>
+        <!-- 底部的结束 -->
+    </div>
+</body>
+<script src="https://cn.vuejs.org/js/vue.js"></script>
+<script>
+    //配置一个本地存储的工具
+    let local = {
+        fetch:function(){
+            return JSON.parse(localStorage.getItem("todos") || '[]')
+        },
+        save:function(todos){
+             localStorage.setItem("todos",JSON.stringify(todos))
+        }
+    }
+   
+
+    let vm = new Vue({
+        el:".todosapp",
+        //监听土豆丝
+        watch: {
+            todos:{
+                handler:function(todos){
+                    local.save(todos)
+                },
+                deep:true
+            }
+        },
+        data:{
+            //v-model的监听的输入框的值
+            changeValue:"",
+            //存储一个数据是本地存储的数据
+            todos:local.fetch(),
+            //选中的项数
+            num:0,
+            //设定一个全选的中立变量
+            allcheck:false,
+            //设定一个修改内容的时候inde的中立变量
+            edit_index: -1,// -1 代表没有在编辑的项
+            //设定一个存储文本中立变量,当撤销的时候就将原来的文本还原
+            savetext:"",
+            //设定一个最初的选中项
+            visibility: "all",// all 全部 active 激活项(completed false) finish(completed true)
+            //输入时的inputting中立变量
+            inputting:false
+        },
+        //自定义一个聚焦指令
+        directives:{
+            "focus":{
+                inserted:function(el,binding){
+                    el.focus()
+                }
+            }
+        },
+        //方法栏
+        methods: {
+            //输入的时候
+            showli:function(){
+                 this.inputting = true
+            },
+            //输入时点击下拉框的添加元素事件
+            addtips(item){
+                this.todos.push({
+                    id:this.todos.length+1,
+                    text:item,
+                    checked:false
+                })
+                this.inputting = false
+                this.changeValue = ""
+            },
+            //键盘的输入时间
+            addtext:function(){
+                if(!this.changeValue.trim()){
+                    alert("输入不能为空")
+                    return;
+                }
+                //创建一个对象存储todos的数据
+                let todos_obj = {
+                    id:this.todos.length,
+                    text:this.changeValue,
+                    checked:false
+                }
+                // todos_obj.id = this.todos.length
+                // todos_obj.text = this.changeValue
+                //将这个生成的对象铺进data属性里面的的数组中
+                this.todos.push(todos_obj)
+                //再将里面输入的值取清空
+                this.changeValue=""
+                this.inputting = false
+            },
+            //删除当时的项
+            removeli:function(index){
+                this.todos.splice(index,1)
+            },
+            //全选以及全选的反选
+            allcheckedEvent:function(){
+                this.todos.forEach((e,i) => {
+                        e.checked = !this.allcheck
+                })
+                    this.allcheck = !this.allcheck
+            },
+            //双击修改事件并且将原来的文本内容存储
+            replacetodos:function(index){
+                this.edit_index = index
+                //存储文本
+                this.savetext = this.todos[index].text
+            },
+            //确认并保存这次的编辑,如果内容是空的时候直接删除
+            //数据驱动的所以输入的内容会双向绑定
+            saveEditTodo(index){
+                if(!this.todos[index].text){
+                    //当内容为空的时候,删除该项
+                    this.todos.splice(index,1)
+                }
+                this.edit_index = -1;
+            },
+            //回退撤销本次操作
+            cancelEditTodo(index){
+                this.todos[index].text = this.savetext;
+                this.edit_index = -1;
+                //还有一个清空操作
+                this.savetext = ""
+            },
+            //清除已经完成的
+            clearCompletedTodos:function(){
+                let notfinish = this.todos.filter((e,i)=>{
+                    return !e.checked
+                })
+                //直接将被选中的提取出来
+                this.todos = notfinish
+            },
+            
+        },
+        //计算属性栏
+        computed: {
+            //全选的计算
+            allChecked:function(){
+              let all = true
+              this.todos.map(function(e,i){
+                if(!e.checked){
+                    all = false
+                }
+              })
+                return all
+          },
+            //未全选的计算
+            remaining:function(){
+                let remaining = this.todos.filter(function(e,i){
+                    return !e.checked
+                })
+                return remaining.length
+            },
+            //计算一个属性选中哪个hash值得todos
+            filterTodos:function(){
+                if(this.visibility === "all"){
+                    return this.todos
+                }else if(this.visibility === "active"){
+                    return this.todos.filter((e,i)=>{
+                        return !e.checked //激活的
+                    })
+                }else{
+                    return this.todos.filter((e,i)=>{
+                        return e.checked //完成的
+                    })
+                }
+            },
+            tips:function(){
+                let tips = [] //存储下拉框的内容
+                // tips = this.todos.map((item) => {
+                //     // console.log(item.text.includes(this.chaneValue))
+                //     if(item.text.indexOf(this.changeValue) !== -1) {
+                //         return item.text
+                //     }
+                // })
+                this.todos.forEach((item,i)=>{
+                    // console.log(typeof (item.text))
+                    if(item.text.indexOf(this.changeValue) !== -1){
+                        tips.push(item.text)
+                    }
+                })
+                return tips
+            }
+
+        },
+    })
+    function hashchangename(){
+        window.location.hash = '/all'
+        vm.visibility = 'all'
+    }
+    hashchangename()
+    //检测hash的变化 赋值到visiblity
+    window.addEventListener("hashchange",function(){
+        // console.log(window.location.hash);
+        if(!vm.visibility){
+        vm.visibility = 'all'
+        }else{
+        vm.visibility = window.location.hash.replace("#/","")
+        }
+    })
+    //输入到中途不想输入了,就直接清空
+    window.addEventListener('click',function(e){
+        if(e.target.nodeName !== "INPUT"){
+            vm.inputting = false
+            vm.changeValue = ""
+        }
+    })
+
+</script>
+</html>

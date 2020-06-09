@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* 定义一个class[v-cloak] */
+        [v-cloak]{
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- 哪里需要在视图渲染的时候隐藏-->
+    <div id="app" v-cloak>
+
+     <section v-once>{{text}}</section>
+     <!-- 这个指令保持在元素上直到冠梁实例结束编译,和css规则如[v-cloak]{display:none} ,一起用的时候可以用来隐藏未编译的mustache标签直到实例准备完毕-->
+    </div>
+    
+</body>
+<script src="https://cn.vuejs.org/js/vue.js"></script>
+<script>
+let vm = new Vue({
+    el:'#app',
+    data:{
+        text:"👍 😊 (*^▽^*) 111 222",
+        html:'<div id="lg"><img hidefocus="true" src="www.baidu.com/img/bd_logo1.png" width="270" height="129"></div>',
+    },
+})
+</script>
+</html>

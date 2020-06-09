@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 记得引入依赖文件 -->
+    <!-- 记得绑定事件和属性的方法 -->
+    <!-- 事件:@event(事件的名字,也可以通过中括号引入变量(data属性的键名来进行事件的变量名绑定事件))="method里面的方法[key]的键名" -->
+    <div id="app">
+        <img v-bind:src="" alt="">
+        <img :src="" alt="">
+        <!-- 这里的键名也可以是变量 -->
+        <!-- 简写直接:属性名(name)="data[key]" -->
+        <!-- 注意引入的属性的键名会被主动的转换为全小写字母 -->
+        <img :[srcname]="imgSrc" alt="">
+
+    </div>
+    
+</body>
+<script src="https://cn.vuejs.org/js/vue.js"></script>
+<!-- 第一部就是引入依赖文件 -->
+<script>
+let vm = new Vue({
+    el:"#app",
+    data:{
+        srcname:"src",
+        imgSrc:"images/1.jpeg"
+    },
+})
+</script>
+</html>

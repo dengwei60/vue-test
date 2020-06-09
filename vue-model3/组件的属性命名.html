@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        [v-cloak]{
+            display: none;
+        }
+    </style>
+</head>
+<body>     
+    <div id="app" v-cloak>
+           <!--动态的属性传入 -->
+          <blog-post :title="title"></blog-post>
+          <blog-post v-for="item,index in posts" :key="index" :title="item"></blog-post>
+          <!-- 静态的属性的传入 -->
+          
+          <blog-post title="皇帝"></blog-post>
+          <h1>因为这是有html的解析问题所以我们在html里面书写标签的时候不能用大写会直接被解析为小写
+              ,但是我们在script里面书写的时候可以用大写(驼峰式),我们在html里面书写的时候建议使用bebab-case
+              中横线的方式来书写
+          </h1>
+    </div>
+</body>
+<script src="https://cn.vuejs.org/js/vue.js"></script>
+<script>
+    Vue.component("blog-post",{
+        //props里面传入的是属性,再通过属性直接拿到这个属性的值
+        props:['title'],
+        template:`<h1>{{title}}</h1>`
+    })
+    let vm = new Vue({
+        el:"#app",
+        data:{
+            title:"皇帝",
+            posts:["👍👍👍👍👍","💯💯💯💯💯💯💯","😊😊😊😊😊😊"]
+        },
+
+    })
+</script>
+</html>

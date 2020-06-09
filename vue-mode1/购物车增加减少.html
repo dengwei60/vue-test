@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <!-- 先写结构 -->
+        <button v-on:click="add">+</button>
+        <span>{{num}}</span>
+        <button v-on:click="sub">-</button>
+
+
+    </div>
+    
+</body>
+<script src="https://cn.vuejs.org/js/vue.js"></script>
+<script>
+let vm = new Vue({
+    el:"#app",
+    data:{
+        num:0,
+
+    },
+    methods:{
+        add:function(){
+            console.log("要增加了哦,我只加了一个单位")
+            this.num +=1
+        },
+        sub:function(){
+            console.log("我想以一个单位减少")
+            if(this.num-1 < 0){
+                alert('你都把我减没了')
+
+            }else{
+                this.num -= 1
+            }
+        }
+
+    }
+})
+</script>
+</html>

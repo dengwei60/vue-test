@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        [v-cloak]{
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    
+    <div id="app" v-cloak>
+       <!-- checkbox 复选框-->
+       <section>
+           <input type="checkbox" value="usa" v-model="checkboxValues" id="checkbox1">
+           <label for="checkbox1">美国</label>
+           <input type="checkbox" value="cn" v-model="checkboxValues" id="checkbox1">
+           <label for="checkbox2">中国</label>
+           <input type="checkbox" value="en" v-model="checkboxValues" id="checkbox1">
+           <label for="checkbox3">英国</label>
+           {{checkboxValues}}
+       </section>
+       <!-- radio 单选框 -->
+       <!-- 一个单选框 -->
+       <section>
+           <input type="radio" v-model='singleRadio' value="我只是一个单选框的value">
+           {{singleRadio}}
+       </section>
+       <!-- 多个单选框 -->
+       <section>
+           <input type="radio" value="usa" v-model='radioValue' id="radio1">
+           <label for="radio1">美国</label>
+           <input type="radio" value="cn" v-model='radioValue' id="radio2">
+           <label for="radio2">中国</label>
+           <input type="radio" value="en" v-model='radioValue' id="radio3">
+           <label for="radio3">英国</label>
+           {{radioValue}}
+       </section>
+       <!-- select单一下拉框监听 -->
+       <select name="" id="" v-model="selectValue">
+           <option value="1">1</option>
+           <option value="2">2</option>
+           <option value="3">3</option>
+       </select>
+       <h1>{{selectValue}}</h1>
+       <select name="" id="" style="width: 50px" v-model="selectValues" multiple>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+       </select>
+    <h1>{{selectValues}}</h1>
+    </div>
+    
+</body>
+<script src="https://cn.vuejs.org/js/vue.js"></script>
+<script>
+let vm = new Vue({
+    el:'#app',
+    data:{
+        checkboxValues:[],//多选框的绑定是一个数组,这个数组会随着吐出来的选中的值来进行更新
+        singleRadio:"",//单个单选框
+        radioValue:'',//多个单选框
+        selectValue:"",//下拉框单一监控
+        selectValues:[]//多个下拉框的监控
+    },
+})
+</script>
+</html>

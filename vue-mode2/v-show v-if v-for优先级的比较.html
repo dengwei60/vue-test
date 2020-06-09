@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* 定义一个class[v-cloak] */
+        [v-cloak]{
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- 哪里需要在视图渲染的时候隐藏-->
+    <div id="app" v-cloak>
+        <section v-for="item,index in arr" v-if="item.seen">
+            {{index}}:{{item.text}}
+        </section>
+        <section v-for="item,index in arr" v-show="item.seen">
+            {{index}}:{{item.text}}
+        </section>
+    <!--v-for的优先级高于 v-if的优先级高于v-show -->
+    </div>
+    
+</body>
+<script src="https://cn.vuejs.org/js/vue.js"></script>
+<script>
+let vm = new Vue({
+    el:'#app',
+    data:{
+       arr:[
+           {seen:true,text:"👍"},
+           {seen:true,text:"💯"},
+           {seen:true,text:"😊"},
+           {seen:true,text:"🍎"}
+       ],
+    },
+})
+</script>
+</html>

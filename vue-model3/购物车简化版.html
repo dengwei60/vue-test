@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./fatie.css">
+    <style>
+        [v-cloak]{
+            display: none;
+        }
+    </style>
+</head>
+<body>     
+    <div id="app" v-cloak>
+        <table>
+            <thead>
+                <th>编号</th>
+                <th>名称</th>
+                <th>单价</th>
+                <th>数量</th>
+                <th>总价</th>
+            </thead>
+            <tbody>
+                <tr v-for="item,index of products"  :key="index">
+                    <td>{{item.id}}</td>
+                    <td>{{item.name}}</td>
+                    <td>{{item.price}}</td>
+                    <td>
+                        <button @click="add(index)">+</button>
+                        {{item.num}}
+                        <button @click="sub(index)">-</button>
+                    </td>
+                    <td>{{item.price * item.num}}</td>
+                </tr>
+            </tbody>
+        </table>
+        <!-- 总价的计算可以有两种方式,通过内置运算方法不用加括号,通过自定义方法要加括号 -->
+        <section>总价:{{gettotalprice()}}</section>
+        <section>总价:{{gettotal}}</section>
+        
+    </div>
+</body>
+<script src="https://cn.vuejs.org/js/vue.js"></script>
+<script>
+    //头部组件
+    Vue.component("demo",{
+        //props里面传入的是属性,再通过属性直接拿到这个属性的值
+        props:{
+          
+        },
+        template:`
+            `,
+            //插槽的使用
+        methods: {
+                
+            },
+    })
+ 
+
+
+    let vm = new Vue({
+        el:"#app",
+        data:{
+            products:[
+                {
+                    id:1,
+                    name:"apple",
+                    price:3,
+                    num:2
+                },
+                {
+                    id:2,
+                    name:"pear",
+                    price:4,
+                    num:3
+                },
+                {
+                    id:3,
+                    name:"banana",
+                    price:5,
+                    num:4
+                }
+            ]
+
+           
+        },
+        //内置方法
+        computed: {
+            gettotal:function(){
+                let products = this.products
+            let totalprice = 0
+            for(let item of products){
+                totalprice += item.price * item.num
+            }
+            return totalprice
+            }
+        },
+        methods:{
+            add:function(index){
+                this.products[index].num++
+            },
+            sub:function(index){
+                if(this.products[index].num - 1 === 0){
+                    alert("已经到0了,别再减了")
+                    return;
+                }
+                this.products[index].num--
+            },
+            //自定义方法
+            gettotalprice(){
+            let products = this.products
+            let totalprice = 0
+            for(let item of products){
+                totalprice += item.price * item.num
+            }
+            return totalprice
+        }
+
+        },
+        
+
+    })
+</script>
+</html>

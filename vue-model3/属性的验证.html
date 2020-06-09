@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        [v-cloak]{
+            display: none;
+        }
+    </style>
+</head>
+<body>     
+    <div id="app" v-cloak>
+        <todos
+        :name="name"
+        :bind="score"
+        :person="p" ></todos>
+           
+    </div>
+</body>
+<script src="https://cn.vuejs.org/js/vue.js"></script>
+<script>
+    function Person( name,number){
+        this.number = number
+        this.name = name
+    }
+    Vue.component("todos",{
+        //props里面传入的是属性,再通过属性直接拿到这个属性的值
+        props:{
+            name:{
+                type:String,
+                required:true
+            },
+            number:{
+                type:[Number,String,Object,Function,Boolean],
+                default:100
+            },
+            obj:{
+                type:Object,
+                default:function(){
+                    return{
+                        size:100
+                    }
+                }
+            },
+            person:{
+                type:Person
+            },
+            score:{
+                type:Number,
+                //自定义的方法需要用工厂函数来return 
+                validator:function(value){
+                    return value >80 
+                }
+            }
+        },
+        template:`
+        <section>
+            number:{{number}}<br>
+            name:{{name}}<br>
+            obj.size:{{obj.size}}<br>
+            score:{{score}}<br>
+            </section>
+            `
+    })
+    let vm = new Vue({
+        el:"#app",
+        data:{
+           number:false,
+           name:1,
+           score:60,
+           p:new Person()
+        },
+
+    })
+</script>
+</html>

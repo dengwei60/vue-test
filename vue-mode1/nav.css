@@ -1,0 +1,30 @@
+.nav {
+  display: flex;
+  justify-content: space-between;
+}
+.nav .left {
+  display: flex;
+}
+.nav .left .nav-item {
+  margin-left: 20px;
+}
+.nav .right {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.nav .right .nav-item {
+  margin-left: 20px;
+}
+.nav .right .nav-item:nth-child(1) {
+  color: red;
+}
+.nav .right .nav-item:nth-child(3) {
+  width: 50px;
+  color: white;
+  background-color: blue;
+  height: 30px;
+  line-height: 30px;
+  border-radius: 5px;
+  text-align: center;
+}

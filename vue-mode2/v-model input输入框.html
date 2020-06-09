@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        [v-cloak]{
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- 演示input的输入框的使用 -->
+    <div id="app" v-cloak>
+        <div id="app" v-cloak>
+        <input type="text" v-model="inputVal">
+        <input type="text" :value="bindvalue">
+        <h1>{{inputVal}}</h1>
+        <h1>{{bindvalue}}</h1>
+
+    </div>
+    
+</body>
+<script src="https://cn.vuejs.org/js/vue.js"></script>
+<script>
+let vm = new Vue({
+    el:'#app',
+    data:{
+        inputVal:"",
+        bindvalue:""
+    },
+})
+</script>
+</html>

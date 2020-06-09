@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        [v-cloak]{
+            display: none;
+        }
+        .nav{
+            display: flex;
+        }
+        .nav a{
+            width: 100px;
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+            border: 1px solid #ddd;
+            text-decoration: none;
+            color: black;
+        }
+        .active{
+            background-color: #ddd;
+        }
+    </style>
+</head>
+<body>
+    <div class="app" v-cloak>
+        <!-- 以item.id === currentTab指引谁被选中 -->
+        <section class="nav">
+            <!-- 类名是通过vue的形式绑定上去的 -->
+            <!-- router-link 默认会被渲染成 html 中的 a 标签
+            通过传入to属性 去到对应的路径 如下-->
+            <!-- 引入了vue - router 库要使用这个库的话,就一定要产生 router-link(入口)和router-view(出口)这两个标签
+            一个是来产生指引的,一个是来接收指引的
+            这既是路由组件及渲染-->
+            <!-- 一个"路径参数"使用冒号":"标记,当匹配到一个路由的时候传入的参数就会被设置到
+            "this.$route.params对象里面"-->
+                <router-link to="/home/123">主页</router-link>
+                <router-link to="/introduce/456">公司介绍</router-link>
+                <router-link to="/product/789">产品详情</router-link>
+        </section>
+        <section class="content">
+            <!-- 路由组件渲染的出口 -->
+            <router-view></router-view>
+        </section>
+    </div>
+    
+</body>
+<!-- vue的依赖库 -->
+<script src="https://cn.vuejs.org/js/vue.js"></script>
+<!-- Vue-Router 需要的依赖库 -->
+<script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+
+<script>
+//主页组件
+let Home = Vue.component("home",{
+    template:`<div>{{$route.params}}主页</div>`,
+})
+//公司介绍
+let Introduce = Vue.component("introduce",{
+    template:`<div>{{$route.params}}公司介绍</div>`,
+})
+//产品详情
+let Product = Vue.component('product',{
+    template:`<div>{{$route.params}}产品详情</div>`
+})
+//如果找不到相应的地址就会去找这个插件
+let PageNotFind= Vue.component('page-not-find',{
+    template:`<div>404</div>`
+})
+
+//既然我们要用到路由,那么久需要定义一个路径和组件之间的关系:书写格式如下
+//路径和对应组件之间的关系
+let routes = [
+    {path:"/home/:id",component:Home},
+    {path:"/introduce/:id",component:Introduce},
+    {path:"/product/:id",component:Product},
+    {path:"*",component:PageNotFind}
+];
+//将配置项配置到 VueRouter里面
+let router = new VueRouter({
+    routes
+})
+//将路由的信息传递到app里面去
+//vue还具有一个监听属性,他会监听你的页面传递之间的参数变化,如下
+let vm =new Vue({
+    el:".app",
+    router,
+    data:{
+        
+    },
+    methods: {
+        
+    },
+    watch: {
+        //可以监听vue实例的属性,这里监听的是路由属性
+        $route:function(to,from){
+            //这两个参数分别代表了:
+            //to:跳转到的页面
+            //from:跳转前的页面信息
+            console.log("to:",to)
+            console.log("from:",from)
+        }
+    },
+})
+</script>
+</html>

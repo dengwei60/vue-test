@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .red{
+            color: red;
+        }
+        .big{
+            font-size: 100px;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <h1 class="red">红色标题1</h1>
+        <h1 v-bind:class="red">红色标题2</h1>
+        <h1 v-bind:class="{red:isRed}">红色标题3</h1>
+        <!-- 多个属性值添加到一个属性里面可以用对象包裹的写法 -->
+        <h1 v-bind:class="{red:isRed,big:true}">红色标题4</h1>
+        <h1 v-bind:class="['red','big']">红色标题5</h1>
+        <h1 v-bind:class="['red',{big:isRed}]">红色标题6</h1>
+        <h1 v-bind:style="{fontSize:'100px',color:'red'}">style的标题1</h1>
+        <h1 v-bind:style="[styleObjectA,styleObjectB]">style的标题2</h1>
+        <h1 :style="{fontSize:'100px',color:'red'}">style的标题3</h1>
+        <h1 :style="[styleObjectB,styleObjectA]">style 的标题4</h1>
+    </div>
+    
+</body>
+<script src="https://cn.vuejs.org/js/vue.js"></script>
+<script>
+    let vm = new Vue({
+        el:"#app",
+        data:{
+            red:"red",
+            isRed:true,
+            styleObjectA:{color:'red'},
+            styleObjectB:{fontSize:'100px'},
+        },
+        methods:{
+
+        },
+    })
+
+</script>
+</html>

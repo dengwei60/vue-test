@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- once这个修饰符是指事件仅仅能执行一次的修饰符 -->
+    <!-- once的引入方式是在事件的后面以.once的方式引入这个字符串 -->
+    <!-- 例如:@click.once-->
+    <div id="app">
+       <button @click.once='handelonceclick'>我是一次性按钮</button>
+    </div>
+    
+</body>
+<script src="https://cn.vuejs.org/js/vue.js"></script>
+<script>
+let vm = new Vue({
+    el:"#app",
+    data:{
+
+    },
+    methods:{
+        //父项的点击事件
+        handelonceclick:function(){
+            console.log("我是一次性按钮")
+        },
+    }
+})
+</script>
+</html>

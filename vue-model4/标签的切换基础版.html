@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        [v-cloak]{
+            display: none;
+        }
+        .nav{
+            display: flex;    
+        }
+        .nav-item{
+            width: 100px;
+            height: 50px;
+            border: 1px solid #ddd;
+            line-height: 50px;
+            text-align: center;
+        }
+        .active{
+            background-color: #ddd;
+        }
+    </style>
+
+</head>
+<body>
+    <div id="app" v-cloak>
+        <!-- 头部通过循环拿到内容 -->
+        <nav class="nav">
+            <!-- 又因为这里的class需要动态的添加active名所以需要用,对象或者数组的方式进行添加 -->
+            <section v-for="item,index in navs" :key="index" @click="handelChange(index)"
+            :class="{'nav-item':true,active:currentTab === item.id}"
+            >
+            {{item.title}}
+        </section>
+        <!-- :class="['nav-item',{active:currentTab === item.id}]" -->
+        </nav>
+        <!--这里通过计算属性来拿到这个内容 -->
+        <section class="content">
+            {{tabContent}}
+        </section>
+    </div>
+</body>
+<script src="https://cn.vuejs.org/js/vue.js"></script>
+<script>
+  
+    let vm = new Vue({
+         el:"#app",
+        data:{
+            //给定一个中间变量的id从而定位到切换时候的元素好做效果渲染
+            currentTab:"home",
+            navs:[{
+                id:"home",
+                title:"主页",
+                content:"主页"
+            },{
+                id:"introduce",
+                title:"公司介绍",
+                content:"公司介绍"
+            },{
+                id:"product",
+                title:"产品介绍",
+                content:"产品介绍"
+            }]
+        },
+        methods:{
+            // changeParentTitle:function(value){
+            //     this.title = value
+            // }
+            handelChange:function(index){
+                this.currentTab = this.navs[index].id
+            }
+        },
+        computed: {
+            //计算内容的方法    
+            tabContent:function(){
+                //点击时候的下标
+                let index = this.navs.findIndex((e,i)=>{return e.id === this.currentTab})
+                //点击时候的下标对应的内容
+                let content = this.navs[index].content
+                //return当时的内容
+                return content
+            }
+        },
+    })
+    
+</script>
+</html>

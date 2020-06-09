@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./2.css">
+    <style>
+        [v-cloak]{
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="app" v-cloak>
+        <!-- 登录框大容器-->
+       <div class="loading">
+            <!-- 登录的顶部文本-->
+        <section class="title">
+            手机号登录/注册
+        </section>
+        <!-- 中键部分 -->
+        <section class="content">
+            <section class="top">
+                <section class="left">+86</section>
+                <section class="right">
+                    <input type="text" placeholder="手机号" v-model='code'>
+                </section>
+            </section>
+            <section class="bottom">
+                <section class="left">
+                    <input type="text" placeholder="请输入验证码" v-model="number">
+                </section>
+                <section class="right">发送验证码</section>
+            </section>
+        </section>
+        <!-- 底部确认 -->
+        <section class="confirm" @click="handelconfirm">确认</section>
+       </div>
+    </div>
+    
+    
+</body>
+<script src="https://cn.vuejs.org/js/vue.js"></script>
+<script>
+let vm = new Vue({
+    el:'#app',
+    data:{
+        code:"",
+        number:''
+    },
+    methods:{
+        handelconfirm:function(){
+            let code = this.code
+            let number = this.number
+            let data = {
+                code,number
+            }
+            console.log("点了我就要发送数据")
+            console.table(vm)
+        }
+    }
+})
+</script>
+</html>

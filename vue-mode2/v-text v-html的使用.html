@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        [v-cloak]{
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- 演示input的输入框的使用 -->
+    <div id="app" v-cloak>
+        <!-- v-text 以及 v-html的使用 -->
+        <section v-text="text"></section>
+        <section v-html="html"></section>
+        <!-- 颠倒比较 -->
+        <section v-text="html"></section>
+        <section v-html="text"></section>
+    </div>
+    
+</body>
+<script src="https://cn.vuejs.org/js/vue.js"></script>
+<script>
+let vm = new Vue({
+    el:'#app',
+    data:{
+        text:"👍 😊 (*^▽^*)",
+        html:'<div id="lg"><img hidefocus="true" src="www.baidu.com/img/bd_logo1.png" width="270" height="129"></div>',
+    },
+})
+</script>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./fatie.css">
+    <style>
+        [v-cloak]{
+            display: none;
+        }
+    </style>
+</head>
+<body>     
+    <div id="app" v-cloak>
+        <!-- 这里是使用.native来监视根元素的原生事件,否则插件是不会具有根元素的事件的 -->
+        <demo @click.native="showdemo">
+            💯😊👍 
+        </demo>
+        
+    </div>
+</body>
+<script src="https://cn.vuejs.org/js/vue.js"></script>
+<script>
+    //头部组件
+    Vue.component("demo",{
+        //props里面传入的是属性,再通过属性直接拿到这个属性的值
+        props:{
+          
+        },
+        template:`
+        <section>
+            <h1>修饰符native的使用</h1>
+            <slot></slot>
+        </section>
+        
+            `,
+            //插槽的使用
+        methods: {
+                
+            },
+    })
+    //中间内容组件
+    Vue.component("box-content",{
+        props:{
+            
+        },
+        template:`
+
+        `,
+        methods: {
+            
+        },
+    })
+    //底部组件
+    Vue.component('box-footer',{
+        props:{},
+        template:`
+
+        `,
+        methods:{},
+    })
+
+
+    let vm = new Vue({
+        el:"#app",
+        data:{
+           
+        },
+        methods:{
+            showdemo:function(){
+                console.log("我看看能点不能点")
+            }
+
+        },
+
+    })
+</script>
+</html>

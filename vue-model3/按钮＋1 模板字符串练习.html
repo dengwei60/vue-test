@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        [v-cloak]{
+            display: none;
+        }
+    </style>
+</head>
+<body>     
+    <div id="app" c-cloak>   
+    </div>
+</body>
+<script src="https://cn.vuejs.org/js/vue.js"></script>
+<script>
+    let name = "按钮";
+    let obj = {
+        name :"按钮"
+    }
+    let RawHtml = `
+    <div>
+    <button>${obj.name}</button>
+    </div>
+    `
+    document.getElementById("app").innerHTML = RawHtml;
+</script>
+</html>

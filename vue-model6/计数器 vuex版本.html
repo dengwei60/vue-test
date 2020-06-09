@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        [v-cloak]{
+            display: none;
+        }
+        .app{
+            width: 100px;
+            display: flex;
+            justify-content: space-between;
+        }
+    </style>
+</head>
+<body>
+    <div class="app" v-cloak>
+        <!-- 3定义视图 -->
+        <!-- 访问的是仓库中的数据num -->
+        <!-- $store是传入的store属性 在vue中的对象 -->
+        <!-- state 是$store 中的属性-->
+        {{$store.state.num}}
+        <button @click="increat">+</button>
+    </div>
+    
+</body>
+<!-- 1,先引入库 -->
+<script src="https://cn.vuejs.org/js/vue.js"></script>
+<script src="https://unpkg.com/vuex@3.4.0/dist/vuex.js"></script>
+<script>
+    //2,创建一个vux的实例,他里面就给vue的实例添加了data和data会改变的状态这样渲染view的时候
+    //对应的state也会随之改变
+
+    let store= new Vuex.Store({
+        //实例里面的配置有state(状态):相当于是vue实例里面的data
+        state:{
+            num:0
+        },
+        //同步的actions的状态,相当于methods
+        mutations:{
+            add(state){
+                state.num++
+            }
+        },
+        //异步的actions状态
+    })
+    let vm = new Vue({
+        el:".app",
+        store,
+        data:{
+            num:0
+        },
+        methods: {
+            increat(){
+                //这里对库进行的状态操作是通过$store.commit()括号内引入需要的动作的名
+                this.$store.commit("add")
+            }
+        },
+    })
+</script>
+</html>

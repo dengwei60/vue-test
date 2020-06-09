@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <button @click="handelchange">点击切换</button>
+        <div>
+            <!-- 属性是以v-bind的形式来绑定 -->
+            <img v-bind:src="imgSrc" alt="">
+        </div> 
+    </div>
+</body>
+<script src="https://cn.vuejs.org/js/vue.js"></script>
+<script>
+    let vm = new Vue({
+        el:'#app',
+        data:{
+            imgSrc:'images/1.jpeg'
+        },
+        methods:{
+            handelchange:function(){
+                this.imgSrc = this.imgSrc === "images/1.jpeg"?"images/2.jpeg":"images/1.jpeg"
+            }
+        },
+    })
+</script>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        [v-cloak]{
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    
+    <div id="app" c-cloak>
+        <button-counter></button-counter>
+    </div>
+</body>
+<script src="https://cn.vuejs.org/js/vue.js"></script>
+<script>
+    //局部注册组件的步骤
+    //1,在new vue 里面添加一个components:{}方法,他接收一个对象
+    //他里面的书写格式"button-counter":BottonConter,前面的名字就是我们将组件引入父
+    //元素的组件名,后面的名字就是我们给这个组件命名的组件名
+    //2,再用变量命名一个组件名,例如:let BottonConter = {},他接收的就是我们这个组件所具有的属性以及方法,
+    //添加的时候类似于在new vue里面的书写格式,但是有几点不一样
+    //(1)他的data是一个函数,所以data要写成data:function(){return ...}并返回需要的静态属性
+    //(2)他的结构中,多了一个template:``,这是书写我们组件的结构的,在反引号里面,
+    let BottonConter = {
+        data:function(){
+            return{
+                num:0
+            }
+        },
+        //记得这里要加一个根元素
+        template:`
+        <div><button @click="handeladd">点击+1:{{num}}</button></div>
+        `,
+        methods:{
+            handeladd:function(){
+                this.num += 1
+            }
+
+        }
+    }
+    let vm = new Vue({
+        el:"#app",
+        data:{
+           
+        },
+        methods:{
+            
+        },
+        components:{
+            "button-counter":BottonConter
+        }
+    })
+</script>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* 定义一个class[v-cloak] */
+        [v-cloak]{
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- 哪里需要在视图渲染的时候隐藏-->
+    <div id="app" v-cloak>
+        <input type="text" v-focus id="myText" value="文本域">
+       
+    </div>
+    
+</body>
+<script src="https://cn.vuejs.org/js/vue.js"></script>
+<script>
+let vm = new Vue({
+    el:'#app',
+    data:{
+      
+    },
+    //给这个实例添加的指令就是在这个实例里面引用钩子函数
+    //第一步进入指令的创建方法
+    directives:{
+        //指令命名以及方法的生成
+        focus:{
+            //当元素被插入到父元素的时候调用下面的回调函数(类似小程序的生命周期)
+            inserted:function(el,bindding,vnode){
+                el.focus();
+                //内置的参数是固定的el指的是这个插入的元素
+                //绑定涵盖了很多内置的属性(方向,值,等等)
+            }
+        }
+
+    }
+})
+</script>
+</html>

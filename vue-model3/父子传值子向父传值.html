@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./fatie.css">
+    <style>
+        [v-cloak]{
+            display: none;
+        }
+    </style>
+</head>
+<body>     
+    <div id="app" v-cloak>
+       <demo @yanlunziyou="getmessage"></demo>
+      <section>
+          {{message}}
+      </section>
+    </div>
+</body>
+<script src="https://cn.vuejs.org/js/vue.js"></script>
+<script>
+    //子传父是通过事件来传递通过命令$emit(参1,参2)
+    //参数1:表示给这个插件本身添加的内置事件的名字,
+    //参数2:表示子向父传递的参数,
+    //子向父传递参数通过事件,先给子绑定一个事件传送事件和参数,然后父这个vue实例就可以用这个方法了,并且这个方法带进了一个子传进的参数.
+    Vue.component("demo",{
+        //props里面传入的是属性,再通过属性直接拿到这个属性的值
+        props:["title"],
+        template:`
+        <section>
+                <h1><button @click="say">老爸打儿子了 </button></h1>
+        </section>
+            `,
+            //插槽的使用
+        methods: {
+            say:function(){
+                //发送事件和参数过去
+                this.$emit("yanlunziyou","你老公要搞事情")
+            }
+                
+            },
+    })
+ 
+
+
+    let vm = new Vue({
+        el:"#app",
+        data:{
+            title:"父向子传值",
+            message:'',//我要告状
+        },
+        //内置方法
+        computed: {
+        },
+        methods:{
+            getmessage:function(mes){
+                this.message = mes
+            }
+
+        },
+        
+
+    })
+</script>
+</html>

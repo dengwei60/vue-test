@@ -1,0 +1,155 @@
+.todosapp {
+    position: relative;
+    width: 600px;
+    margin: 0 auto;
+    border: 2px solid #ddd;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2),
+                 0 25px 50px 0 rgba(0, 0, 0, 0.1);
+    //添加一个显示和隐藏的类
+    .hidden{
+      display: none;
+    }
+    .show{
+      display: block;
+    }
+    .top {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background-image: url("./image/5f808255eae7c5b2a075b7699aa690fc.jpg");
+        .title {
+          color: rgb(255, 140, 0);
+          font-size: 50px;
+        }
+        .content{
+          width: 100%;
+          position: relative;
+          .left{
+            position: absolute;
+            top: 0;
+            left: 15px;
+            width: 50px;
+            height: 50px;
+            // background-color: salmon;
+            font-size: 30px;
+            line-height: 50px;
+            text-align: center;
+            color: #ddd;
+          }
+          .allch{
+            color: black;
+          }
+         .todo-input {
+            height: 50px;
+            margin-bottom: 10px;
+            input {
+               border: none;
+               text-indent: 80px;
+               font-size: 30px;
+               height: 100%;
+               width: 100%;
+               box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2),
+                 0 25px 50px 0 rgba(0, 0, 0, 0.1);
+            }
+          }
+          ul{
+            position: absolute;
+            left: 80px;
+            top: 50px;
+            li{
+              height: 30px;
+              width: 333px;
+              line-height: 30px;
+              text-align: left;
+              color: white;
+              // background-image: url("./image/5f808255eae7c5b2a075b7699aa690fc.jpg");
+              background-color: rgb(255, 132, 0);
+              border-bottom: 1px solid #ddd;
+              border-radius: 5px;
+              margin-bottom: 2px;
+              box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2),
+                 0 25px 50px 0 rgba(0, 0, 0, 0.1);
+              // opacity: 0.8;
+            }
+          }
+        }
+     }
+    .middle {
+        width: 100%;
+        .middle-content {
+            padding: 5px;
+            .middle-list {
+            list-style:none ;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            input {
+                flex:1;
+            }
+            .list-item {
+              flex: 8;
+              input{
+                width: 100%;
+                height: 100%;
+              }
+            }
+            .active{
+                color:#ddd;
+                text-decoration: line-through;
+            }
+            .del{
+              display: none;
+              flex: 0.5;
+              font-size: 20px;
+              color: red;
+            }
+            
+          }
+        }
+        .middle-content:hover{
+          .del{
+            display: block;
+          }
+        }
+      }
+    .bottom {
+        // background-color: rgb(142, 230, 252);
+        width: 100%;
+        border-top: 1px solid #ddd;
+        box-sizing: border-box;
+        padding: 20px;
+        display: flex;
+        justify-content: space-between;
+        z-index: 10;
+        .left {
+          color: rgb(255, 140, 0);
+          span {
+            color: rgb(1, 252, 235);
+          }
+        }
+      
+        .center {
+            display: flex;
+          .center-list {
+            width: 60px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-decoration: none;
+          }
+          .choose{
+            // background-color:red;
+            border: 1px solid  rgb(255, 140, 0);
+          }
+        }
+      
+        .right {
+          button {
+            border: none;
+            background-color: red;
+            color: white;
+          }
+        }
+      }
+    }

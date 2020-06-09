@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <h1>{{name}}</h1>
+        <h1>{{message+"🌂"}}</h1>
+    </div>
+    <script src="https://cn.vuejs.org/js/vue.js"></script>
+    <script>
+       let vm = new Vue({
+           el:"#app",
+           data:{
+               name:"张三",
+               message:"消息"
+           }
+       })
+    </script>
+</body>
+</html>

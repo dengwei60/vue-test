@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        [v-cloak]{
+            display: none;
+        }
+        .nav{
+            display: flex;
+        }
+        .nav .nav-item{
+            width: 100px;
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+            border: 1px solid #ddd;
+
+        }
+        .active{
+            background-color: #ddd;
+        }
+    </style>
+</head>
+<body>
+    <div class="app" v-cloak>
+        <!-- 以item.id === currentTab指引谁被选中 -->
+        <section class="nav">
+            <!-- 类名是通过vue的形式绑定上去的 -->
+            <section :class="['nav-item',{'active':item.path === currentTab}]"  @click.prevent.stop = "switchTab(index)"
+            v-for="item,index in navs">{{item.title}}</section>
+        </section>
+        <section class="content">
+            <!--编程实现的时候视图也要给成为路由的出口 -->
+            <router-view></router-view>
+        </section>
+    </div>
+    
+</body>
+<!-- 引入依赖第一步 -->
+<script src="https://cn.vuejs.org/js/vue.js"></script>
+<script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+<script>
+//主页组件
+let Home = Vue.component("home",{
+    template:`<div>主页</div>`,
+})
+//公司介绍
+let Introduce = Vue.component("introduce",{
+    template:`<div>公司介绍</div>`,
+})
+//产品详情
+let Product = Vue.component('product',{
+    template:`<div>产品详情</div>`
+})
+//生成一个新的配置路由的类,这个类的options,就是路由的相关匹配配置
+ let router = new VueRouter({
+     routes:[
+         {path:"/home",component:Home},
+         {path:"/introduce",component:Introduce},
+         {path:"/product", component:Product},
+     ],  
+})
+//将这个类一属性的方式传递到vue的实例当中
+let vm =new Vue({
+    el:".app",
+    router,
+    data:{
+        currentTab: "/home", //当前渲染的组件
+            navs: [{
+                path: "/home",
+                title: "主页"
+            }, {
+                path: "/introduce",
+                title: "公司介绍"
+            }, {
+                path: "/product",
+                title: "产品详情"
+            }]
+    },
+    methods: {
+        switchTab(index){
+            this.currentTab = this.navs[index].path
+            this.$router.push(this.navs[index].path)
+        }
+    },
+})
+</script>
+</html>

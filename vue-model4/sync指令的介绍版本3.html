@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        [v-cloak]{
+            display: none;
+        }
+    </style>
+
+</head>
+<body>
+    <div id="app" v-cloak>
+        <!-- 页面的监听事件 -->
+        <h1>父组件的title:{{title}}</h1>
+        <!--  -->
+        <test :title.sync="title"></test>
+        
+    </div>
+</body>
+<script src="https://cn.vuejs.org/js/vue.js"></script>
+<script>
+    Vue.component("test",{
+        props:['title'],
+        data:function(){
+            return {
+                title_children:this.title
+            }
+        },
+        template:`
+        <section>
+            <h1>子组件的title:{{title_children}}</h1>
+            <button @click="changeValue">修改title_children的值</button>
+        </section>
+        `,
+        methods:{
+            changeValue:function(){
+                this.title_children = "100分"
+                //子传父通过事件传送
+                this.$emit("update:title",this.title_children)
+            }
+        },
+    })
+    
+    let vm = new Vue({
+         el:"#app",
+       
+        data:{
+            title:"👍"
+        },
+        methods:{
+            changeParentTitle:function(value){
+                this.title = value
+            }
+        }
+    })
+    
+</script>
+</html>

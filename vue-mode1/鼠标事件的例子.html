@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .red{
+            color: red;
+            font-size: 100px;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <h1 @mouseenter="changeStyle" 
+        @mouseleave="removeStyle" 
+        v-bind:class="red">我要试试鼠标的事件</h1>
+        <!-- 属性里面引入的的插值不用插值表达式,直接在字符串符号内直接引用这个data属性的[key],键名就好! -->
+    </div>
+</body>
+<script src="https://cn.vuejs.org/js/vue.js"></script>
+<script>
+    let vm = new Vue({
+        el:"#app",
+        data:{
+            red:"",
+        },
+        methods:{
+            changeStyle:function(){
+                console.log("鼠标进入")
+                this.red = "red"
+            },
+            removeStyle:function(){
+                console.log("鼠标离开了")
+                this.red = ""
+            }
+        }
+    })
+</script>
+</html>
